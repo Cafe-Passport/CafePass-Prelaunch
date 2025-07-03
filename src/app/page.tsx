@@ -137,7 +137,7 @@ export default function Home() {
           <div className="flex-1 flex flex-col items-center">
             <UserGroupIcon className="w-12 h-12 text-yellow-600 mb-2" />
             <h3 className="font-semibold">Partner with Us</h3>
-            <p className="text-center text-gray-700">List your café and feature your signature drink.</p>
+            <p className="text-gray-600">I&apos;ve been looking for a way to attract more regulars, and CafePass seems like the perfect solution.</p>
           </div>
           <div className="flex-1 flex flex-col items-center">
             <QrCodeIcon className="w-12 h-12 text-yellow-600 mb-2" />
@@ -147,7 +147,7 @@ export default function Home() {
           <div className="flex-1 flex flex-col items-center">
             <ArrowTrendingUpIcon className="w-12 h-12 text-yellow-600 mb-2" />
             <h3 className="font-semibold">You Get More Visits</h3>
-            <p className="text-center text-gray-700">We promote your café to our growing base of coffee explorers.</p>
+            <p className="text-lg text-gray-600 mb-8">You&apos;re building something great. We&apos;ll help you find your first customers.</p>
           </div>
         </div>
       </section>
@@ -196,7 +196,7 @@ export default function Home() {
 
       {/* What You'll Get as a Launch Partner */}
       <section className="w-full max-w-3xl px-4 py-8">
-        <h2 className="text-2xl font-bold mb-6 text-center">What You'll Get as a Launch Partner</h2>
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-12">What You&apos;ll Get as an Early Partner</h2>
         <ul className="list-disc pl-8 space-y-2 text-gray-800">
           <li>Priority listing on our homepage</li>
           <li>Customized QR code signage</li>
