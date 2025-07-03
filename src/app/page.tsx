@@ -196,7 +196,7 @@ export default function Home() {
 
       {/* What You'll Get as a Launch Partner */}
       <section className="w-full max-w-3xl px-4 py-8">
-        <h2 className="text-2xl font-bold mb-6 text-center">What You'll Get as a Launch Partner</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">What You&apos;ll Get as a Launch Partner</h2>
         <ul className="list-disc pl-8 space-y-2 text-gray-800">
           <li>Priority listing on our homepage</li>
           <li>Customized QR code signage</li>
