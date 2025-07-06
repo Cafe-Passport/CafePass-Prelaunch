@@ -191,7 +191,7 @@ export default function Home() {
         <div className="flex justify-center gap-6 text-lg">
           <a href="https://www.instagram.com/cafepass.ca/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
           <a href="https://www.linkedin.com/company/cafe-pass/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:underline">TikTok</a>
+          {/* <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:underline">TikTok</a> */}
         </div>
       </footer>
     </div>
