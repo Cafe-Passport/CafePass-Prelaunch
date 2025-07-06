@@ -15,11 +15,10 @@ import {
 export default function Home() {
   // Form state
   const [form, setForm] = useState({
-    name: "",
+   
     cafe: "",
     email: "",
-    website: "",
-    signature: "",
+    
     beta: false,
   });
   const [submitted, setSubmitted] = useState(false);
@@ -49,6 +48,7 @@ export default function Home() {
     <div className="bg-gradient-to-b from-green-50 to-white min-h-screen w-full flex flex-col items-center font-sans">
       {/* Hero Section */}
       <section className="w-full max-w-2xl text-center pt-16 pb-8 px-4">
+        <img src="/logo.svg" alt="Logo" className="mx-auto w-60 mb-6" />
         <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-4">Get Discovered by More Coffee Lovers in Toronto</h1>
         <p className="text-lg sm:text-xl text-gray-700 mb-6">
           Join our city-wide café passport program and drive foot traffic with zero upfront cost.
@@ -59,14 +59,7 @@ export default function Home() {
             <div className="text-green-700 font-medium">Thank you! We&apos;ll be in touch soon.</div>
           ) : (
             <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-              <input 
-                name="name" 
-                value={form.name} 
-                onChange={handleChange} 
-                required 
-                placeholder="Your Name" 
-                className="px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-900 bg-white w-full" 
-              />
+            
               <input 
                 name="cafe" 
                 value={form.cafe} 
@@ -83,20 +76,6 @@ export default function Home() {
                 required 
                 placeholder="Email" 
                 className="px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-900 bg-white w-full" 
-              />
-              <input 
-                name="website" 
-                value={form.website} 
-                onChange={handleChange} 
-                placeholder="Website or Instagram" 
-                className="px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-900 bg-white w-full" 
-              />
-              <input 
-                name="signature" 
-                value={form.signature} 
-                onChange={handleChange} 
-                placeholder="Signature Drink (optional)" 
-                className="px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-900 bg-white w-full" 
               />
               <label className="flex items-center gap-2 text-green-600 text-sm mt-1">
                 <input 
@@ -210,8 +189,8 @@ export default function Home() {
       <footer className="w-full bg-green-100 py-6 mt-8 text-center text-gray-800">
         <div className="mb-2">Contact: <a href="mailto:hello@coffeepasstoronto.ca" className="underline">hello@coffeepasstoronto.ca</a></div>
         <div className="flex justify-center gap-6 text-lg">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+          <a href="https://www.instagram.com/cafepass.ca/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
+          <a href="https://www.linkedin.com/company/cafe-pass/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
           <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:underline">TikTok</a>
         </div>
       </footer>
