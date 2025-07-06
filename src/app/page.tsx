@@ -11,6 +11,7 @@ import {
   CalendarIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
+import { FaInstagram, FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
   // Form state
@@ -189,8 +190,8 @@ export default function Home() {
       <footer className="w-full bg-green-100 py-6 mt-8 text-center text-gray-800">
         <div className="mb-2">Contact: <a href="mailto:hello@coffeepasstoronto.ca" className="underline">hello@coffeepasstoronto.ca</a></div>
         <div className="flex justify-center gap-6 text-lg">
-          <a href="https://www.instagram.com/cafepass.ca/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
-          <a href="https://www.linkedin.com/company/cafe-pass/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+          <a href="https://www.instagram.com/cafepass.ca/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-green-700"><FaInstagram className="w-6 h-6" /></a>
+          <a href="https://www.linkedin.com/company/cafe-pass/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-green-700"><FaLinkedin className="w-6 h-6" /></a>
           {/* <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="hover:underline">TikTok</a> */}
         </div>
       </footer>
