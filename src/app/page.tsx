@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 import {
   UserGroupIcon,
   QrCodeIcon,
@@ -38,11 +39,27 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: Integrate with Supabase
-    setTimeout(() => {
+    try {
+      const { error } = await supabase
+        .from("partners_waitlist") // change to your table name
+        .insert([
+          { cafe: form.cafe, email: form.email, beta: form.beta }
+        ]);
+
+      if (error) {
+        console.error(error);
+        alert("Something went wrong. Please try again.");
+        setLoading(false);
+        return;
+      }
+
       setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      alert("Unexpected error. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   };
 
   return (
