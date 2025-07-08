@@ -179,7 +179,12 @@ export default function Home() {
       {/* Testimonials */}
       <section className="w-full max-w-3xl px-4 py-8">
         <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">Testimonials</h2>
-        <div className="flex flex-col gap-6">
+        <blockquote className="bg-lime-50 border-l-4 border-lime-400 p-4 rounded">
+            <p className="italic text-gray-900">“You will be featured in the launch”</p>
+            <footer className="text-right text-lime-900 font-semibold mt-2 ">— New café owner</footer>
+          </blockquote>
+
+        {/* <div className="flex flex-col gap-6">
           <blockquote className="bg-lime-50 border-l-4 border-lime-400 p-4 rounded">
             <p className="italic text-gray-900">“We saw a 30% bump in foot traffic after getting listed.”</p>
             <footer className="text-right text-lime-900 font-semibold mt-2 ">— Test Café (Beta Partner)</footer>
@@ -188,7 +193,7 @@ export default function Home() {
             <p className="italic text-gray-900">“We love how Coffee Pass helps us reach local coffee lovers without running ads.”</p>
             <footer className="text-right text-lime-900 font-semibold mt-2">— Local Beans, Kensington Market</footer>
           </blockquote>
-        </div>
+        </div> */}
       </section>
 
       {/* What You'll Get as a Launch Partner */}
