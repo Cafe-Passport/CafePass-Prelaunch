@@ -63,7 +63,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-green-50 to-white min-h-screen w-full flex flex-col items-center font-sans">
+    <div className="bg-gradient-to-b from-yellow-50 to-white min-h-screen w-full flex flex-col items-center font-sans">
       {/* Hero Section */}
       <section className="w-full max-w-2xl text-center pt-16 pb-8 px-4">
         <img src="/logo.svg" alt="Logo" className="mx-auto w-60 mb-6" />
@@ -74,7 +74,7 @@ export default function Home() {
         <div className="bg-white/90 rounded-xl shadow-lg p-6 mx-auto max-w-md">
           <h2 className="text-xl text-gray-900 font-semibold mb-2">☕ Join the Waitlist or Apply to Partner</h2>
           {submitted ? (
-            <div className="text-green-700 font-medium">Thank you! We&apos;ll be in touch soon.</div>
+            <div className="text-lime-700 font-medium">Thank you! We&apos;ll be in touch soon.</div>
           ) : (
             <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             
@@ -84,7 +84,7 @@ export default function Home() {
                 onChange={handleChange} 
                 required 
                 placeholder="Café Name" 
-                className="px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-900 bg-white w-full" 
+                className="px-3 py-2 border border-lime-300 rounded focus:outline-none focus:ring-2 focus:ring-lime-400 text-gray-900 bg-white w-full" 
               />
               <input 
                 name="email" 
@@ -93,21 +93,21 @@ export default function Home() {
                 onChange={handleChange} 
                 required 
                 placeholder="Email" 
-                className="px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-900 bg-white w-full" 
+                className="px-3 py-2 border border-lime-300 rounded focus:outline-none focus:ring-2 focus:ring-lime-400 text-gray-900 bg-white w-full" 
               />
-              <label className="flex items-center gap-2 text-green-600 text-sm mt-1">
+              <label className="flex items-center gap-2 text-lime-600 text-sm mt-1">
                 <input 
                   type="checkbox" 
                   name="beta" 
                   checked={form.beta} 
                   onChange={handleChange} 
-                  className="accent-green-600" 
+                  className="accent-lime-600" 
                 />
                 I&apos;m interested in beta testing / featured launch listing
               </label>
               <button 
                 type="submit" 
-                className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 transition-colors w-full mt-2" 
+                className="bg-lime-500 text-white font-semibold py-2 px-4 rounded hover:bg-lime-600 transition-colors w-full mt-2" 
                 disabled={loading}
               >
                 {loading ? "Submitting..." : "Reserve My Spot"}
@@ -117,7 +117,7 @@ export default function Home() {
         </div>
         {/* Progress bar / counter */}
         <div className="flex items-center justify-center gap-2 mt-4 text-gray-800">
-          <SparklesIcon className="w-5 h-5 text-green-500" />
+          <SparklesIcon className="w-5 h-5 text-lime-500" />
           <span className="font-semibold"> reserve yours now!</span>
         </div>
         {/* Launch date */}
@@ -132,17 +132,17 @@ export default function Home() {
         <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">How It Works</h2>
         <div className="flex flex-col sm:flex-row justify-center gap-8">
           <div className="flex-1 flex flex-col items-center">
-            <UserGroupIcon className="w-12 h-12 text-green-600 mb-2" />
+            <UserGroupIcon className="w-12 h-12 text-lime-600 mb-2" />
             <h3 className="font-semibold text-gray-900">Partner with Us</h3>
             <p className="text-center text-gray-700">List your café and feature your signature drink.</p>
           </div>
           <div className="flex-1 flex flex-col items-center">
-            <QrCodeIcon className="w-12 h-12 text-green-600 mb-2" />
+            <QrCodeIcon className="w-12 h-12 text-lime-600 mb-2" />
             <h3 className="font-semibold text-gray-900">Customers Check In</h3>
             <p className="text-center text-gray-700">They scan a QR code at your shop or stamp their physical pass.</p>
           </div>
           <div className="flex-1 flex flex-col items-center">
-            <ArrowTrendingUpIcon className="w-12 h-12 text-green-600 mb-2" />
+            <ArrowTrendingUpIcon className="w-12 h-12 text-lime-600 mb-2" />
             <h3 className="font-semibold text-gray-900">You Get More Visits</h3>
             <p className="text-center text-gray-700">We promote your café to our growing base of coffee explorers.</p>
           </div>
@@ -154,23 +154,23 @@ export default function Home() {
         <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">Why Join Coffee Pass?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <div className="flex items-center gap-3">
-            <TicketIcon className="w-8 h-8 text-green-600" />
+            <TicketIcon className="w-8 h-8 text-lime-600" />
             <span className="text-gray-700">Free Promotion to Toronto coffee drinkers</span>
           </div>
           <div className="flex items-center gap-3">
-            <MapPinIcon className="w-8 h-8 text-green-600" />
+            <MapPinIcon className="w-8 h-8 text-lime-600" />
             <span className="text-gray-700">Placement on Our Curated Map</span>
           </div>
           <div className="flex items-center gap-3 ">
-            <ChartBarIcon className="w-8 h-8 text-green-600" />
+            <ChartBarIcon className="w-8 h-8 text-lime-600" />
             <span className="text-gray-700">Digital Loyalty System to replace paper cards</span>
           </div>
           <div className="flex items-center gap-3">
-            <UsersIcon className="w-8 h-8 text-green-600" />
+            <UsersIcon className="w-8 h-8 text-lime-600" />
             <span className="text-gray-700">Community Support from other indie café owners</span>
           </div>
           <div className="flex items-center gap-3">
-            <ArrowTrendingUpIcon className="w-8 h-8 text-green-600" />
+            <ArrowTrendingUpIcon className="w-8 h-8 text-lime-600" />
             <span className="text-gray-700">Access to Analytics and customer trends</span>
           </div>
         </div>
@@ -180,13 +180,13 @@ export default function Home() {
       <section className="w-full max-w-3xl px-4 py-8">
         <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">Testimonials</h2>
         <div className="flex flex-col gap-6">
-          <blockquote className="bg-green-50 border-l-4 border-green-400 p-4 rounded">
+          <blockquote className="bg-lime-50 border-l-4 border-lime-400 p-4 rounded">
             <p className="italic text-gray-900">“We saw a 30% bump in foot traffic after getting listed.”</p>
-            <footer className="text-right text-green-900 font-semibold mt-2">— Test Café (Beta Partner)</footer>
+            <footer className="text-right text-lime-900 font-semibold mt-2 ">— Test Café (Beta Partner)</footer>
           </blockquote>
-          <blockquote className="bg-green-50 border-l-4 border-green-400 p-4 rounded">
+          <blockquote className="bg-lime-50 border-l-4 border-lime-400 p-4 rounded">
             <p className="italic text-gray-900">“We love how Coffee Pass helps us reach local coffee lovers without running ads.”</p>
-            <footer className="text-right text-green-900 font-semibold mt-2">— Local Beans, Kensington Market</footer>
+            <footer className="text-right text-lime-900 font-semibold mt-2">— Local Beans, Kensington Market</footer>
           </blockquote>
         </div>
       </section>
@@ -204,8 +204,8 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full bg-green-100 py-6 mt-8 text-center text-gray-800">
-        <div className="mb-2">Contact: <a href="mailto:hello@coffeepasstoronto.ca" className="underline">hello@coffeepasstoronto.ca</a></div>
+      <footer className="w-full bg-lime-100 py-12 mt-8  text-center text-gray-800">
+        <div className="mb-2">Contact: <a href="mailto:cafepassto@gmail.com" className="underline">cafepassto@gmail.com</a></div>
         <div className="flex justify-center gap-6 text-lg">
           <a href="https://www.instagram.com/cafepass.ca/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-green-700"><FaInstagram className="w-6 h-6" /></a>
           <a href="https://www.linkedin.com/company/cafe-pass/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-green-700"><FaLinkedin className="w-6 h-6" /></a>
