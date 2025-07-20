@@ -97,7 +97,7 @@ export default function Home() {
                 )}
               </div>
               <Link 
-                href="/coffee-drinkers-waitlist"
+                href="/coffee-drinkers"
                 className="block w-full bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-center"
               >
                 Join Waitlist
@@ -125,7 +125,7 @@ export default function Home() {
                 )}
               </div>
               <Link 
-                href="/cafe-partners-waitlist"
+                href="/cafe-partners"
                 className="block w-full bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-center"
               >
                 Partner With Us
@@ -234,13 +234,13 @@ export default function Home() {
           <p className="text-xl text-lime-800 mb-8">Be part of Toronto&apos;s premier coffee community</p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 
-              href="/coffee-drinkers-waitlist"
+              href="/coffee-drinkers"
               className="bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors text-center"
             >
               Join as a Coffee Lover
             </Link>
             <Link 
-              href="/cafe-partners-waitlist"
+              href="/cafe-partners"
               className="bg-white hover:bg-gray-50 text-lime-700 font-semibold py-3 px-8 rounded-lg border-2 border-lime-600 transition-colors text-center"
             >
               Join as a Café
