@@ -1,42 +1,19 @@
 "use client";
-import { useState, useEffect } from "react"; // Import useEffect
-import { supabase } from "../lib/supabaseClient"; // Changed import path
+import { useState, useEffect } from "react";
+import { supabase } from "../lib/supabaseClient";
 import {
   UserGroupIcon,
   QrCodeIcon,
-  ArrowTrendingUpIcon,
   MapPinIcon,
   TicketIcon,
   ChartBarIcon,
-  UsersIcon,
-  CalendarIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
-// Removed: import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function App() { // Changed to App for consistency with React export
-  // State to manage the active tab: 'cafes' or 'users'
-  const [activeTab, setActiveTab] = useState<'cafes' | 'users'>('cafes');
-
-  // Cafe Partner Waitlist form state
-  const [formCafes, setFormCafes] = useState({
-    cafe: "",
-    email: "",
-    beta: false,
-  });
-  const [submittedCafes, setSubmittedCafes] = useState(false);
-  const [loadingCafes, setLoadingCafes] = useState(false);
-
-  // Coffee Drinker (User) Waitlist form state
-  const [formUsers, setFormUsers] = useState({
-    name: "",
-    email: "",
-    beta: false,
-  });
-  const [submittedUsers, setSubmittedUsers] = useState(false);
-  const [loadingUsers, setLoadingUsers] = useState(false);
-
-  // New state variables for sign-up counts
+export default function Home() {
+  // State variables for sign-up counts
   const [cafeCount, setCafeCount] = useState<number | null>(null);
   const [userCount, setUserCount] = useState<number | null>(null);
   const [loadingCounts, setLoadingCounts] = useState(true);
@@ -48,7 +25,7 @@ export default function App() { // Changed to App for consistency with React exp
       // Fetch cafe count
       const { count: cafes, error: cafeError } = await supabase
         .from("partners_waitlist")
-        .select('*', { count: 'exact', head: true }); // Use head: true for count only
+        .select('*', { count: 'exact', head: true });
 
       if (cafeError) {
         console.error("Error fetching cafe count:", cafeError);
@@ -58,15 +35,14 @@ export default function App() { // Changed to App for consistency with React exp
 
       // Fetch user count
       const { count: users, error: userError } = await supabase
-        .from("users_waitlist") // Make sure this table name matches your Supabase table
-        .select('*', { count: 'exact', head: true }); // Use head: true for count only
+        .from("users_waitlist")
+        .select('*', { count: 'exact', head: true });
 
       if (userError) {
         console.error("Error fetching user count:", userError);
       } else {
         setUserCount(users);
       }
-
     } catch (err) {
       console.error("Unexpected error fetching counts:", err);
     } finally {
@@ -74,304 +50,248 @@ export default function App() { // Changed to App for consistency with React exp
     }
   };
 
-  // useEffect to fetch counts on component mount
+  // Fetch counts on component mount
   useEffect(() => {
     fetchCounts();
-  }, []); // Empty dependency array means this runs once on mount
-
-  // Handle input changes for Cafes form
-  const handleChangeCafes = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormCafes((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  // Handle input changes for Users form
-  const handleChangeUsers = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormUsers((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  // Handle form submit for Cafes
-  const handleSubmitCafes = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoadingCafes(true);
-    try {
-      const { error } = await supabase
-        .from("partners_waitlist") // Target table for cafes
-        .insert([
-          { cafe: formCafes.cafe, email: formCafes.email, beta: formCafes.beta }
-        ]);
-
-      if (error) {
-        console.error("Error submitting cafe form:", error);
-        // Using a simple div for alerts instead of window.alert()
-        document.getElementById('cafe-alert-message')!.innerText = "Something went wrong with the cafe submission. Please try again.";
-        setLoadingCafes(false);
-        return;
-      }
-      setSubmittedCafes(true);
-      fetchCounts(); // Re-fetch counts after successful submission
-    } catch (err) {
-      console.error("Unexpected error submitting cafe form:", err);
-      document.getElementById('cafe-alert-message')!.innerText = "Unexpected error. Please try again.";
-    } finally {
-      setLoadingCafes(false);
-    }
-  };
-
-  // Handle form submit for Users
-  const handleSubmitUsers = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoadingUsers(true);
-    try {
-      const { error } = await supabase
-        .from("users_waitlist") // **IMPORTANT**: This should be your Supabase table for coffee drinkers
-        .insert([
-          { name: formUsers.name, email: formUsers.email, beta: formUsers.beta }
-        ]);
-
-      if (error) {
-        console.error("Error submitting user form:", error);
-        // Using a simple div for alerts instead of window.alert()
-        document.getElementById('user-alert-message')!.innerText = "Something went wrong with your submission. Please try again.";
-        setLoadingUsers(false);
-        return;
-      }
-      setSubmittedUsers(true);
-      fetchCounts(); // Re-fetch counts after successful submission
-    } catch (err) {
-      console.error("Unexpected error submitting user form:", err);
-      document.getElementById('user-alert-message')!.innerText = "Unexpected error. Please try again.";
-    } finally {
-      setLoadingUsers(false);
-    }
-  };
+  }, []);
 
   return (
-    <div className="bg-gradient-to-b from-yellow-50 to-white min-h-screen w-full flex flex-col items-center font-sans">
+    <div className="bg-gradient-to-b from-lime-50 to-lime-100 min-h-screen w-full flex flex-col items-center font-sans">
       {/* Hero Section */}
-      <section className="w-full max-w-2xl text-center pt-16 pb-8 px-4">
-        <img src="logo.svg" alt="Logo" className="mx-auto w-60 mb-6 rounded-md" />
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 mb-4">Get Discovered by More Coffee Lovers in Toronto</h1>
-        <p className="text-lg sm:text-xl text-gray-700 mb-6">
-          Join our city-wide café passport program and drive foot traffic with zero upfront cost.
+      <section className="w-full max-w-4xl text-center pt-16 pb-12 px-4">
+        <div className="relative w-48 h-16 mx-auto mb-8">
+          <Image 
+            src="/logo.svg" 
+            alt="CafePass Logo" 
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+        <h1 className="text-4xl sm:text-6xl font-extrabold text-lime-500 mb-6">
+          Discover & Support Local Cafés
+        </h1>
+        <p className="text-xl sm:text-2xl text-lime-500 mb-10 max-w-3xl mx-auto">
+          Join our community of coffee lovers and independent cafés in Toronto
         </p>
-        <div className="bg-white/90 rounded-xl shadow-lg p-6 mx-auto max-w-md">
-          {/* Tab Switcher */}
-          <div className="flex justify-center mb-4">
-            <button
-              className={`px-4 py-2 rounded-t-lg font-semibold transition-colors border-b-2 ${activeTab === 'users' ? 'text-lime-700 border-lime-500 bg-white' : 'text-gray-500 border-transparent bg-lime-50'}`}
-              onClick={() => setActiveTab('users')}
-              type="button"
-            >
-              Coffee Drinker Waitlist
-            </button>
-            <button
-              className={`px-4 py-2 rounded-t-lg font-semibold transition-colors border-b-2 ${activeTab === 'cafes' ? 'text-lime-700 border-lime-500 bg-white' : 'text-gray-500 border-transparent bg-lime-50'}`}
-              onClick={() => setActiveTab('cafes')}
-              type="button"
-            >
-              Cafes Partner Waitlist
-            </button>
+        
+        {/* Waitlist Cards */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-12">
+          {/* Coffee Lovers Card */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+            <div className="p-8">
+              <div className="bg-lime-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+              <UserGroupIcon className="w-8 h-8 text-lime-700" />
+              </div>
+              <h2 className="text-2xl font-bold text-lime-900 mb-4">Coffee Lovers</h2>
+              <p className="text-lime-800 mb-6">
+                Be the first to know when we launch. Get exclusive early access and special offers.
+              </p>
+              <div className="mb-6">
+                {loadingCounts ? (
+                  <div className="h-8 bg-lime-100 rounded animate-pulse"></div>
+                ) : (
+                  <p className="text-lime-700 font-medium">
+                    {userCount !== null ? `${userCount}+ people already joined` : 'Join the movement'}
+                  </p>
+                )}
+              </div>
+              <Link 
+                href="/coffee-drinkers-waitlist"
+                className="block w-full bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-center"
+              >
+                Join Waitlist
+              </Link>
+            </div>
           </div>
 
-          {/* Tab Content */}
-          {activeTab === 'cafes' ? (
-            // Cafe Form
-            submittedCafes ? (
-              <div className="text-lime-700 font-medium">Thank you! We&apos;ll be in touch soon.</div>
-            ) : (
-              <form className="flex flex-col gap-3" onSubmit={handleSubmitCafes}>
-                <input
-                  name="cafe"
-                  value={formCafes.cafe}
-                  onChange={handleChangeCafes}
-                  required
-                  placeholder="Café Name"
-                  className="px-3 py-2 border border-lime-300 rounded focus:outline-none focus:ring-2 focus:ring-lime-400 text-gray-900 bg-white w-full"
-                />
-                <input
-                  name="email"
-                  type="email"
-                  value={formCafes.email}
-                  onChange={handleChangeCafes}
-                  required
-                  placeholder="Email"
-                  className="px-3 py-2 border border-lime-300 rounded focus:outline-none focus:ring-2 focus:ring-lime-400 text-gray-900 bg-white w-full"
-                />
-                <label className="flex items-center gap-2 text-lime-600 text-sm mt-1">
-                  <input
-                    type="checkbox"
-                    name="beta"
-                    checked={formCafes.beta}
-                    onChange={handleChangeCafes}
-                    className="accent-lime-600"
-                  />
-                  I&apos;m interested in beta testing / featured launch listing
-                </label>
-                <button
-                  type="submit"
-                  className="bg-lime-500 text-white font-semibold py-2 px-4 rounded hover:bg-lime-600 transition-colors w-full mt-2"
-                  disabled={loadingCafes}
-                >
-                  {loadingCafes ? "Submitting..." : "Reserve My Spot"}
-                </button>
-                <div id="cafe-alert-message" className="text-red-500 text-sm mt-2"></div> {/* Alert message div */}
-              </form>
-            )
-          ) : (
-            // User Form
-            submittedUsers ? (
-              <div className="text-lime-700 font-medium">Thank you! We&apos;ll be in touch soon.</div>
-            ) : (
-              <form className="flex flex-col gap-3" onSubmit={handleSubmitUsers}>
-                <input
-                  name="name"
-                  value={formUsers.name}
-                  onChange={handleChangeUsers}
-                  required
-                  placeholder="Your Name"
-                  className="px-3 py-2 border border-lime-300 rounded focus:outline-none focus:ring-2 focus:ring-lime-400 text-gray-900 bg-white w-full"
-                />
-                <input
-                  name="email"
-                  type="email"
-                  value={formUsers.email}
-                  onChange={handleChangeUsers}
-                  required
-                  placeholder="Email"
-                  className="px-3 py-2 border border-lime-300 rounded focus:outline-none focus:ring-2 focus:ring-lime-400 text-gray-900 bg-white w-full"
-                />
-                <label className="flex items-center gap-2 text-lime-600 text-sm mt-1">
-                  <input
-                    type="checkbox"
-                    name="beta"
-                    checked={formUsers.beta}
-                    onChange={handleChangeUsers}
-                    className="accent-lime-600"
-                  />
-                  I&apos;m interested in beta testing and early access
-                </label>
-                <button
-                  type="submit"
-                  className="bg-lime-500 text-white font-semibold py-2 px-4 rounded hover:bg-lime-600 transition-colors w-full mt-2"
-                  disabled={loadingUsers}
-                >
-                  {loadingUsers ? "Submitting..." : "Join the Waitlist"}
-                </button>
-                <div id="user-alert-message" className="text-red-500 text-sm mt-2"></div> {/* Alert message div */}
-              </form>
-            )
-          )}
-        </div>
-        {/* Progress bar / counter */}
-        <div className="flex items-center justify-center gap-2 mt-4 text-gray-800">
-          <SparklesIcon className="w-5 h-5 text-lime-500" />
-          <span className="font-semibold">
-            {loadingCounts ? "Loading sign-ups..." : (
-              <>
-                {cafeCount !== null && userCount !== null ? (
-                  <>
-                    <span className="text-lime-700">{cafeCount}</span> cafes and <span className="text-lime-700">{userCount}</span> coffee drinkers have signed up!
-                  </>
+          {/* Cafe Partners Card */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform hover:scale-105">
+            <div className="p-8">
+              <div className="bg-lime-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <QrCodeIcon className="w-8 h-8 text-lime-700" />
+              </div>
+              <h2 className="text-2xl font-bold text-lime-900 mb-4">Café Owners</h2>
+              <p className="text-lime-800 mb-6">
+                Join our network of premium coffee shops and reach more customers in Toronto.
+              </p>
+              <div className="mb-6">
+                {loadingCounts ? (
+                  <div className="h-8 bg-lime-100 rounded animate-pulse"></div>
                 ) : (
-                  "reserve yours now!"
+                  <p className="text-lime-700 font-medium">
+                    {cafeCount !== null ? `${cafeCount}+ cafés already joined` : 'Partner with us'}
+                  </p>
                 )}
-              </>
-            )}
-          </span>
-        </div>
-        {/* Launch date */}
-        <div className="flex items-center justify-center gap-2 mt-1 text-gray-700 text-sm">
-          <CalendarIcon className="w-4 h-4" />
-          Official public launch: <span className="ml-1 font-medium">Fall 2025</span>
+              </div>
+              <Link 
+                href="/cafe-partners-waitlist"
+                className="block w-full bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors text-center"
+              >
+                Partner With Us
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="w-full max-w-4xl px-4 py-8">
-        <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">How It Works</h2>
-        <div className="flex flex-col sm:flex-row justify-center gap-8">
-          <div className="flex-1 flex flex-col items-center">
-            <UserGroupIcon className="w-12 h-12 text-lime-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">Partner with Us</h3>
-            <p className="text-center text-gray-700">List your café and feature your signature drink.</p>
+      {/* Progress bar / counter */}
+      <div className="flex items-center justify-center gap-2 mt-8 text-lime-900">
+        <SparklesIcon className="w-5 h-5 text-lime-600" />
+        <span className="font-semibold">
+          {loadingCounts ? "Loading sign-ups..." : (
+            <>
+              {cafeCount !== null && userCount !== null ? (
+                <>
+                  <span className="text-amber-700">{cafeCount}</span> cafes and <span className="text-amber-700">{userCount}</span> coffee drinkers have joined us!
+                </>
+              ) : (
+                "Join our growing community today!"
+              )}
+            </>
+          )}
+        </span>
+      </div>
+
+      {/* How It Works Section */}
+      <section className="w-full max-w-4xl px-4 py-16">
+        <h2 className="text-3xl font-bold text-center text-lime-900 mb-12">How It Works</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="bg-lime-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <UserGroupIcon className="w-8 h-8 text-lime-700" />
+            </div>
+            <h3 className="text-xl font-semibold text-lime-900 mb-2">1. Sign Up</h3>
+            <p className="text-lime-800">Join as a coffee lover or café owner</p>
           </div>
-          <div className="flex-1 flex flex-col items-center">
-            <QrCodeIcon className="w-12 h-12 text-lime-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">Customers Check In</h3>
-            <p className="text-center text-gray-700">They scan a QR code at your shop or stamp their physical pass.</p>
+          <div className="text-center">
+            <div className="bg-lime-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <QrCodeIcon className="w-8 h-8 text-lime-700" />
+            </div>
+            <h3 className="text-xl font-semibold text-lime-900 mb-2">2. Connect</h3>
+            <p className="text-lime-800">Discover local cafés or reach new customers</p>
           </div>
-          <div className="flex-1 flex flex-col items-center">
-            <ArrowTrendingUpIcon className="w-12 h-12 text-lime-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">You Get More Visits</h3>
-            <p className="text-center text-gray-700">We promote your café to our growing base of coffee explorers.</p>
+          <div className="text-center">
+            <div className="bg-lime-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <SparklesIcon className="w-8 h-8 text-lime-700" />
+            </div>
+            <h3 className="text-xl font-semibold text-lime-900 mb-2">3. Enjoy</h3>
+            <p className="text-lime-800">Experience the best coffee Toronto has to offer</p>
           </div>
         </div>
       </section>
 
       {/* Why Join */}
-      <section className="w-full max-w-4xl px-4 py-8">
-        <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">Why Join Coffee Pass?</h2>
+      <section className="w-full max-w-4xl px-4 py-12">
+        <h2 className="text-3xl font-bold text-center text-lime-900 mb-12">Why Join CafePass?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <div className="flex items-center gap-3">
-            <TicketIcon className="w-8 h-8 text-lime-600" />
-            <span className="text-gray-700">Free Promotion to Toronto coffee drinkers</span>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-lime-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <TicketIcon className="w-6 h-6 text-lime-700" />
+            </div>
+            <h3 className="text-lg font-semibold text-lime-900 text-center mb-2">Early Access</h3>
+            <p className="text-lime-800 text-center">Get exclusive early access to our newest features</p>
           </div>
-          <div className="flex items-center gap-3">
-            <MapPinIcon className="w-8 h-8 text-lime-600" />
-            <span className="text-gray-700">Placement on Our Curated Map</span>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-lime-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <TicketIcon className="w-6 h-6 text-lime-700" />
+            </div>
+            <h3 className="text-lg font-semibold text-lime-900 text-center mb-2">Free Promotion</h3>
+            <p className="text-lime-800 text-center">Get featured to our growing community of Toronto coffee enthusiasts</p>
           </div>
-          <div className="flex items-center gap-3 ">
-            <ChartBarIcon className="w-8 h-8 text-lime-600" />
-            <span className="text-gray-700">Digital Loyalty System to replace paper cards</span>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-lime-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <MapPinIcon className="w-6 h-6 text-lime-700" />
+            </div>
+            <h3 className="text-lg font-semibold text-lime-900 text-center mb-2">Curated Map</h3>
+            <p className="text-lime-800 text-center">Be discovered on our interactive map of the best cafés in Toronto</p>
           </div>
-          <div className="flex items-center gap-3">
-            <UsersIcon className="w-8 h-8 text-lime-600" />
-            <span className="text-gray-700">Community Support from other indie café owners</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <ArrowTrendingUpIcon className="w-8 h-8 text-lime-600" />
-            <span className="text-gray-700">Access to Analytics and customer trends</span>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <div className="bg-lime-100 w-12 h-12 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <ChartBarIcon className="w-6 h-6 text-lime-700" />
+            </div>
+            <h3 className="text-lg font-semibold text-lime-900 text-center mb-2">Digital Loyalty</h3>
+            <p className="text-lime-800 text-center">Modern, paperless loyalty system for your customers</p>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="w-full max-w-3xl px-4 py-8">
-        <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">Testimonials</h2>
-        <blockquote className="bg-lime-50 border-l-4 border-lime-400 p-4 rounded">
-          <p className="italic text-gray-900">“You will be featured in the launch”</p>
-          <footer className="text-right text-lime-900 font-semibold mt-2 ">— New café owner</footer>
-        </blockquote>
+      <section className="w-full max-w-3xl px-4 py-12">
+        <h2 className="text-3xl font-bold text-center text-lime-900 mb-12">What People Are Saying</h2>
+        <div className="bg-white p-8 rounded-xl shadow-md"> 
+          <blockquote className="text-center">
+            <p className="text-xl italic text-lime-800 mb-4">&quot;CafePass has helped us connect with so many new customers who are passionate about great coffee. The digital loyalty system is a game-changer!&quot;</p>
+            <footer className="font-semibold text-lime-900">— Sarah M., Café Owner</footer>
+          </blockquote>
+        </div>
       </section>
 
-      {/* What You'll Get as a Launch Partner */}
-      <section className="w-full max-w-3xl px-4 py-8">
-        <h2 className="text-2xl text-gray-900 font-bold mb-6 text-center">What You&apos;ll Get as a Launch Partner</h2>
-        <ul className="list-disc pl-8 space-y-2 text-gray-800">
-          <li>Priority listing on our homepage</li>
-          <li>Customized QR code signage</li>
-          <li>Access to early analytics dashboard</li>
-          <li>Invites to exclusive launch events</li>
-          <li>Cross-promotion on our social media</li>
-        </ul>
+      {/* CTA Section */}
+      <section className="w-full bg-lime-50 py-16 mt-8">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <h2 className="text-3xl font-bold text-lime-900 mb-6">Ready to Join the Movement?</h2>
+          <p className="text-xl text-lime-800 mb-8">Be part of Toronto&apos;s premier coffee community</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link 
+              href="/coffee-drinkers-waitlist"
+              className="bg-lime-600 hover:bg-lime-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors text-center"
+            >
+              Join as a Coffee Lover
+            </Link>
+            <Link 
+              href="/cafe-partners-waitlist"
+              className="bg-white hover:bg-gray-50 text-lime-700 font-semibold py-3 px-8 rounded-lg border-2 border-lime-600 transition-colors text-center"
+            >
+              Join as a Café
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="w-full bg-lime-100 py-12 mt-8  text-center text-gray-800">
-        <div className="mb-2">Contact: <a href="mailto:cafepassto@gmail.com" className="underline">cafepassto@gmail.com</a></div>
-        <div className="flex justify-center gap-6 text-lg">
-          {/* Replaced FaInstagram with text */}
-          <a href="https://www.instagram.com/cafepass.ca/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-green-700">Instagram</a>
-          {/* Replaced FaLinkedin with text */}
-          <a href="https://www.linkedin.com/company/cafe-pass/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-green-700">LinkedIn</a>
+      <footer className="w-full bg-lime-800 py-12 text-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-6 md:mb-0">
+              <h3 className="text-2xl font-bold mb-2">CafePass</h3>
+              <p className="text-lime-200">Discover & Support Local Cafés</p>
+            </div>
+            <div className="flex flex-col items-center md:items-end">
+              <div className="mb-4 text-lime-200">
+                Contact: <a href="mailto:cafepassto@gmail.com" className="text-white hover:underline">cafepassto@gmail.com</a>
+              </div>
+              <div className="flex gap-6">
+                <a 
+                  href="https://www.instagram.com/cafepass.ca/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-white hover:text-amber-lime-200 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <span className="sr-only">Instagram</span>
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a 
+                  href="https://www.linkedin.com/company/cafe-pass/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-white hover:text-lime-200 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <span className="sr-only">LinkedIn</span>
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-amber-700 mt-8 pt-8 text-center text-amber-200">
+            <p>© {new Date().getFullYear()} CafePass. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>
