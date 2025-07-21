@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabaseClient';
 import Footer from '@/components/Footer';
@@ -10,47 +10,9 @@ export default function CoffeeDrinkersWaitlist() {
   const [name, setName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ text: '', isError: false });
-  const [cafeCount, setCafeCount] = useState<number | null>(null);
-  const [userCount, setUserCount] = useState<number | null>(null);
-  const [loadingCounts, setLoadingCounts] = useState(true);
   const router = useRouter();
 
-  // Function to fetch sign-up counts from Supabase
-  const fetchCounts = async () => {
-    setLoadingCounts(true);
-    try {
-      // Fetch cafe count
-      const { count: cafes, error: cafeError } = await supabase
-        .from("partners_waitlist")
-        .select('*', { count: 'exact', head: true });
 
-      if (cafeError) {
-        console.error("Error fetching cafe count:", cafeError);
-      } else {
-        setCafeCount(cafes);
-      }
-
-      // Fetch user count
-      const { count: users, error: userError } = await supabase
-        .from("users_waitlist")
-        .select('*', { count: 'exact', head: true });
-
-      if (userError) {
-        console.error("Error fetching user count:", userError);
-      } else {
-        setUserCount(users);
-      }
-    } catch (err) {
-      console.error("Unexpected error fetching counts:", err);
-    } finally {
-      setLoadingCounts(false);
-    }
-  };
-
-  // Fetch counts on component mount
-  useEffect(() => {
-    fetchCounts();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
