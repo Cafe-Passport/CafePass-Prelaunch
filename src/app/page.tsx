@@ -60,7 +60,7 @@ export default function Home() {
     <div className="bg-gradient-to-b from-lime-50 to-lime-100 min-h-screen w-full flex flex-col items-center font-sans">
       {/* Hero Section */}
       <section className="w-full max-w-4xl text-center pt-16 pb-12 px-4">
-        <div className="relative w-48 h-16 mx-auto mb-8">
+        <div className="relative w-64  h-16 mx-auto mb-8">
           <Image 
             src="/logo.svg" 
             alt="CafePass Logo" 

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -10,6 +11,23 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: "Special Gothic Expanded One", sans-serif;
+  --font-display: 'Special Elite', cursive;
+}
+
+/* Apply fonts to all heading elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+/* Optional: Apply Special Gothic Expanded One to specific elements if needed */
+.display-font {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
 }
 
 @media (prefers-color-scheme: dark) {
