@@ -92,8 +92,7 @@ type TextRevealProps = {
   from?: gsap.TweenVars;
   to?: gsap.TweenVars;
   className?: string;
-  [key: string]: any;
-};
+} & React.HTMLAttributes<HTMLElement>;
 
 export const TextReveal: React.FC<TextRevealProps> = ({
   children,
