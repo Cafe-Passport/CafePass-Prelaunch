@@ -12,13 +12,14 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import { FadeInUp, Counter, TextReveal } from "@/components/Animations";
 
 export default function Home() {
   // State variables for sign-up counts
   const [cafeCount, setCafeCount] = useState<number | null>(null);
   const [userCount, setUserCount] = useState<number | null>(null);
   const [loadingCounts, setLoadingCounts] = useState(true);
-
+  
   // Function to fetch sign-up counts from Supabase
   const fetchCounts = async () => {
     setLoadingCounts(true);
@@ -59,7 +60,7 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-b from-lime-50 to-lime-100 min-h-screen w-full flex flex-col items-center font-sans">
       {/* Hero Section */}
-      <section className="w-full max-w-4xl text-center pt-16 pb-12 px-4">
+      <FadeInUp className="w-full max-w-4xl text-center pt-16 pb-12 px-4">
         <div className="relative w-64  h-16 mx-auto mb-8">
           <Image 
             src="/logo.svg" 
@@ -69,9 +70,16 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-lime-500 mb-6">
+        <TextReveal 
+          as="h1" 
+          className="text-4xl sm:text-6xl font-extrabold text-lime-500 mb-6"
+          from={{ opacity: 0, y: 30 }}
+          to={{ opacity: 1, y: 0 }}
+          delay={0.2}
+          duration={1}
+        >
           Discover & Support Local Cafés
-        </h1>
+        </TextReveal>
         <p className="text-xl sm:text-2xl text-lime-500 mb-10 max-w-3xl mx-auto">
           Join our community of coffee lovers and independent cafés in Toronto
         </p>
@@ -93,7 +101,11 @@ export default function Home() {
                   <div className="h-8 bg-lime-100 rounded animate-pulse"></div>
                 ) : (
                   <p className="text-lime-700 font-medium">
-                    {userCount !== null ? `${userCount}+ people already joined` : 'Join the movement'}
+                    {userCount !== null ? (
+                      <>
+                        <Counter value={userCount} className="font-bold" />+ people already joined
+                      </>
+                    ) : 'Join the movement'}
                   </p>
                 )}
               </div>
@@ -121,7 +133,11 @@ export default function Home() {
                   <div className="h-8 bg-lime-100 rounded animate-pulse"></div>
                 ) : (
                   <p className="text-lime-700 font-medium">
-                    {cafeCount !== null ? `${cafeCount}+ cafés already joined` : 'Partner with us'}
+                    {cafeCount !== null ? (
+                      <>
+                        <Counter value={cafeCount} className="font-bold" />+ cafés already joined
+                      </>
+                    ) : 'Partner with us'}
                   </p>
                 )}
               </div>
@@ -134,7 +150,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </FadeInUp>
 
       {/* Progress bar / counter */}
       <div className="flex items-center justify-center gap-2 mt-8 text-lime-900">
@@ -155,7 +171,7 @@ export default function Home() {
       </div>
 
       {/* How It Works Section */}
-      <section className="w-full max-w-4xl px-4 py-16">
+      <FadeInUp className="w-full max-w-4xl px-4 py-16">
         <h2 className="text-3xl font-bold text-center text-lime-900 mb-12">How It Works</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center">
@@ -180,10 +196,10 @@ export default function Home() {
             <p className="text-lime-800">Experience the best coffee Toronto has to offer</p>
           </div>
         </div>
-      </section>
+      </FadeInUp>
 
       {/* Why Join */}
-      <section className="w-full max-w-4xl px-4 py-12">
+      <FadeInUp className="w-full max-w-4xl px-4 py-12" from={{ opacity: 0, y: 30, delay: 0.1 }}>
         <h2 className="text-3xl font-bold text-center text-lime-900 mb-12">Why Join CafePass?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-xl shadow-md">
@@ -215,10 +231,10 @@ export default function Home() {
             <p className="text-lime-800 text-center">Modern, paperless loyalty system for your customers</p>
           </div>
         </div>
-      </section>
+      </FadeInUp>
 
       {/* Testimonials */}
-      <section className="w-full max-w-3xl px-4 py-12">
+      <FadeInUp className="w-full max-w-3xl px-4 py-12" from={{ opacity: 0, y: 30, delay: 0.2 }}>
         <h2 className="text-3xl font-bold text-center text-lime-900 mb-12">What People Are Saying</h2>
         <div className="bg-white p-8 rounded-xl shadow-md"> 
           <blockquote className="text-center">
@@ -226,10 +242,10 @@ export default function Home() {
             <footer className="font-semibold text-lime-900">— Sarah M., Café Owner</footer>
           </blockquote>
         </div>
-      </section>
+      </FadeInUp>
 
       {/* CTA Section */}
-      <section className="w-full bg-lime-50 py-16 mt-8">
+      <FadeInUp className="w-full bg-lime-50 py-16 mt-8" from={{ opacity: 0, y: 30, delay: 0.3 }}>
         <div className="max-w-3xl mx-auto text-center px-4">
           <h2 className="text-3xl font-bold text-lime-900 mb-6">Ready to Join the Movement?</h2>
           <p className="text-xl text-lime-800 mb-8">Be part of Toronto&apos;s premier coffee community</p>
@@ -248,7 +264,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </FadeInUp>
 
       {/* Footer */}
       <Footer />
