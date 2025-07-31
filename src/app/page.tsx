@@ -61,7 +61,7 @@ export default function Home() {
     <div className="bg-gradient-to-b from-lime-50 to-lime-100 min-h-screen w-full flex flex-col items-center font-sans">
       {/* Hero Section */}
       <FadeInUp className="w-full max-w-4xl text-center pt-16 pb-12 px-4">
-        <div className="relative w-64  h-16 mx-auto mb-8">
+        <div className="relative w-64 h-16 mx-auto mb-8">
           <Image 
             src="/logo.svg" 
             alt="CafePass Logo" 
@@ -71,17 +71,19 @@ export default function Home() {
           />
         </div>
         <TextReveal 
-          as="h1" 
+          as="h1"
           className="text-4xl sm:text-6xl font-extrabold text-lime-500 mb-6"
           from={{ opacity: 0, y: 30 }}
           to={{ opacity: 1, y: 0 }}
-          delay={0.2}
           duration={1}
+          delay={0.2}
         >
           Discover & Support Local Cafés
         </TextReveal>
         <p className="text-xl sm:text-2xl text-lime-500 mb-10 max-w-3xl mx-auto">
-          Join our community of coffee lovers and independent cafés in Toronto
+          <TextReveal delay={0.4}>
+            Join our community of coffee lovers and independent cafés in Toronto
+          </TextReveal>
         </p>
         
         {/* Waitlist Cards */}
